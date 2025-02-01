@@ -1,11 +1,10 @@
 spring:
   application:
     name: ${SPRING_APPLICATION_NAME:MrCoolSoftApplication}
+
   config:
-    import: application_prod.yml
-  profiles:
-    default: prod
-    active: prod
+    activate:
+      on-profile: prod
 
   datasource:
     url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/${DATABASE_NAME:mrcoolbank}
@@ -13,10 +12,10 @@ spring:
     password: ${DATABASE_PASSWORD:root}
 
   jpa:
-    show-sql: ${JPA_SHOW_SQL:true}
+    show-sql: ${JPA_SHOW_SQL:false}
     properties:
       hibernate:
-        format_sql: ${HIBERNATE_FORMAT_SQL:true}
+        format_sql: ${HIBERNATE_FORMAT_SQL:false}
 
 logging:
   pattern:
@@ -24,4 +23,4 @@ logging:
   level:
     org:
       springframework:
-        security: ${LOGLEVEL_SPRING_SECURITY:trace}
+        security: ${LOGLEVEL_SPRING_SECURITY:ERROR}
