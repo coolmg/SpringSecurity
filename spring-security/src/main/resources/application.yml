@@ -1,12 +1,6 @@
 spring:
   application:
-    name: ${SPRING_APPLICATION_NAME:MrCoolSoftApplication}
-
-  security:
-    user:
-      name: ${SECURITY_USER_NAME:admin}
-      password: ${SECURITY_USER_PASSWORD:admin}
-      roles: ${SECURITY_USER_ROLES:USER,ADMIN}
+    name: ${SPRING_APPLICATION_NAME:MrCoolSoftApplication}s
 
 logging:
   pattern:
