@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: ${SPRING_APPLICATION_NAME:MrCoolSoftApplication}
+
+  security:
+    user:
+      name: ${SECURITY_USER_NAME:admin}
+      password: ${SECURITY_USER_PASSWORD:admin}
+      roles: ${SECURITY_USER_ROLES:USER,ADMIN}
+
+logging:
+  pattern:
+    console: ${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
+  level:
+    org:
+      springframework:
+        security: ${LOGLEVEL_SPRING_SECURITY:trace}
