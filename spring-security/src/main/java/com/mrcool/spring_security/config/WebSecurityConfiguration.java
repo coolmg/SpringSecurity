@@ -18,7 +18,8 @@ public class WebSecurityConfiguration {
                 .requestMatchers("contact","notices","error").permitAll());
         //http.formLogin(withDefaults());
         http.formLogin(AbstractHttpConfigurer::disable);
-        http.httpBasic(withDefaults());
+        //http.httpBasic(withDefaults());
+        http.httpBasic(AbstractHttpConfigurer::disable);
         return http.build();
     }
 }
