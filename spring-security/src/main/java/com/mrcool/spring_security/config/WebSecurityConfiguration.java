@@ -1,5 +1,7 @@
 package com.mrcool.spring_security.config;
 
+import com.mrcool.spring_security.authentication.CustomAccessDeniedHandler;
+import com.mrcool.spring_security.authentication.CustomBasicAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -17,12 +19,15 @@ public class WebSecurityConfiguration {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
+                .sessionManagement(sm -> sm.invalidSessionUrl("/invalidSession").maximumSessions(3).maxSessionsPreventsLogin(true))
+                .requiresChannel(rcc -> rcc.anyRequest().requiresInsecure()) // only HTTP
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
                 .requestMatchers("myAccount","myBalance","myLoans","myCards", "register").authenticated()
-                .requestMatchers("contact","notices","error").permitAll());
+                .requestMatchers("contact","notices","error","/invalidSession").permitAll());
         http.formLogin(withDefaults());
-        http.httpBasic(withDefaults());
+        http.httpBasic(hbc -> hbc.authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()));
+        http.exceptionHandling(eh -> eh.accessDeniedHandler(new CustomAccessDeniedHandler()));
         return http.build();
     }
 

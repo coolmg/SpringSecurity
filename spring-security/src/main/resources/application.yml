@@ -25,3 +25,8 @@ logging:
     org:
       springframework:
         security: ${LOGLEVEL_SPRING_SECURITY:trace}
+
+server:
+  servlet:
+    session:
+      timeout: ${SESSION_TIMEOUT:2m}
