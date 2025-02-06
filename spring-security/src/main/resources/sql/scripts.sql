@@ -173,9 +173,9 @@ CREATE TABLE `authorities` (
                                CONSTRAINT `authorities_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
 );
 
-INSERT INTO `authorities` (`customer_id`, `name`) VALUES (2, 'VIEWACCOUNT');
+INSERT INTO `authorities` (`customer_id`, `name`) VALUES (1, 'VIEWACCOUNT');
 
-INSERT INTO `authorities` (`customer_id`, `name`) VALUES (3, 'VIEWCARDS');
+INSERT INTO `authorities` (`customer_id`, `name`) VALUES (1, 'VIEWCARDS');
 
 INSERT INTO `authorities` (`customer_id`, `name`) VALUES (1, 'VIEWLOANS');
 
