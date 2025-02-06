@@ -1,8 +1,10 @@
 package com.mrcool.spring_security.config;
 
+
 import com.mrcool.spring_security.model.Customer;
 import com.mrcool.spring_security.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,8 +26,9 @@ public class MrCoolBankUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Customer customer = this.customerRepository.findByEmail(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
-
-        return new User(customer.getEmail(), customer.getPwd(), new ArrayList<>(List.of(new SimpleGrantedAuthority(customer.getRole()))));
+        Customer customer = customerRepository.findByEmail(username).orElseThrow(() -> new
+                UsernameNotFoundException("User details not found for the user: " + username));
+        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(customer.getRole()));
+        return new User(customer.getEmail(), customer.getPwd(), authorities);
     }
 }

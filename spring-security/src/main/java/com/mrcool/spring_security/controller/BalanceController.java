@@ -1,12 +1,28 @@
 package com.mrcool.spring_security.controller;
 
+import com.mrcool.spring_security.model.AccountTransactions;
+import com.mrcool.spring_security.repository.AccountTransactionsRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
+@RequiredArgsConstructor
 public class BalanceController {
-    @GetMapping(value = "/myBalance")
-    public String getBalanceDetails() {
-        return "Balance details from DB";
+
+    private final AccountTransactionsRepository accountTransactionsRepository;
+
+    @GetMapping("/myBalance")
+    public List<AccountTransactions> getBalanceDetails(@RequestParam long id) {
+        List<AccountTransactions> accountTransactions = accountTransactionsRepository.
+                findByCustomerIdOrderByTransactionDtDesc(id);
+        if (accountTransactions != null) {
+            return accountTransactions;
+        } else {
+            return null;
+        }
     }
 }
