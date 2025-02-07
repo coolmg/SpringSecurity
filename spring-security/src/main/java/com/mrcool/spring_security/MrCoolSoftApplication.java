@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 @SpringBootApplication
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 //@EntityScan("com.mrcool.spring_security.model")
 //@EnableJpaRepositories("com.mrcool.spring_security.repository")
 public class MrCoolSoftApplication {
