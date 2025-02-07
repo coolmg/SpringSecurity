@@ -1,5 +1,6 @@
 package com.mrcool.spring_security.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -8,21 +9,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 @Profile("prod")
+@RequiredArgsConstructor
 public class MrCoolBankProdUserDetailsAuthenticationProvider implements AuthenticationProvider {
 
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
 
-    MrCoolBankProdUserDetailsAuthenticationProvider(UserDetailsService userDetailsService){
-        this.userDetailsService = userDetailsService;
-        this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
     /**
      * @param authentication the authentication request object.
      * @return Authentication
