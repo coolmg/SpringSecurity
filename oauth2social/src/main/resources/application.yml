@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: OAuth2 Social
+  security:
+    user:
+      name: ${SECURITY_USERNAME:admin}
+      password: ${SECURITY_PASSWORD:admin}
+
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${GITHUB_CLIENT_ID:Ov23lipftPcJRegEdpVT}
+            client-secret: ${GITHUB_CLIENT_SECRET:8982535bd48d7a1c4d6f6fc50dd06982f34c74f2}
+
+logging:
+  pattern:
+    console: ${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
+
+server:
+  port: 9002
