@@ -123,6 +123,16 @@ public class SecurityConfig {
                         .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED).build())
                 .build();
 
+        RegisteredClient introspectClient = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("mrcool-introspect")
+                .clientSecret("{noop}qwXsO6IMdDTN7HYEyjssp13GwIjijvSG")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .scopes(scopes -> scopes.addAll(List.of(OidcScopes.OPENID, "ADMIN", "USER")))
+                .tokenSettings(TokenSettings.builder().accessTokenTimeToLive(Duration.ofMinutes(10))
+                        .accessTokenFormat(OAuth2TokenFormat.REFERENCE).build()).build();
+
+
         RegisteredClient authCodeClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("mrcool-auth-code-client")
                 .clientSecret("{noop}Qw3rTy6UjMnB9zXcV2pL0sKjHn5TxQqB")
@@ -149,7 +159,7 @@ public class SecurityConfig {
                         .refreshTokenTimeToLive(Duration.ofHours(8)).reuseRefreshTokens(false)
                         .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED).build()).build();
 
-        return new InMemoryRegisteredClientRepository(regCredClient, authCodeClient, pkceClient);
+        return new InMemoryRegisteredClientRepository(regCredClient, introspectClient, authCodeClient, pkceClient);
     }
 
     @Bean
